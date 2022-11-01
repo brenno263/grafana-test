@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function fetchNorm() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          let data = JSON.parse(this.responseText);
+          console.log(data);
+          document.getElementById("norm").innerHTML = data.norm;
+          document.getElementById("first-value").innerHTML = data.startValue;
+          document.getElementById("last-value").innerHTML = data.endValue;
+        };
+        let size = document.getElementById("magnitude").value;
+        xhttp.open("GET", "/norm/" + size, true);
+        xhttp.send();
+      }
+    </script>
+    <h1>Test site</h1>
+    <p>
+      Expensive vector 2-norm: <span id="norm"></span>, first value:
+      <span id="first-value"></span>, last value: <span id="last-value"></span>
+    </p>
+    <label for="magnitude">Vector size</label>
+    <input type="number" min="1" id="magnitude" />
+    <button onclick="fetchNorm()">Fetch</button>
+  </body>
+</html>
